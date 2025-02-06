@@ -9,7 +9,7 @@
       <div class="main-show-data">
         <div class="left-container">
           <ChartGather :gatherData="gatherData"></ChartGather>
-          <ChartCharge></ChartCharge>
+          <ChartCharge :chargeData="chargeData"></ChartCharge>
         </div>
         <div class="middle-container">
           <ChartHospitalPostion></ChartHospitalPostion>
@@ -56,6 +56,8 @@ const getAllData = async () => {
 const topData = reactive([])
 // 获取采集数据
 const gatherData = reactive([])
+// 获取收费数据
+const chargeData = reactive([])
 
 getAllData().then(res => {
   console.log(res)
@@ -83,8 +85,30 @@ getAllData().then(res => {
     })
   })
 
-  console.log('gatherData', gatherData);
-  
+  // 收费数据
+  res.hospitalizationData.hospital.forEach(item => {
+    let name = item.hospitalName
+    let dataArr = []
+
+    res.chargeData.forEach(chargeItem => {
+      if (chargeItem.hospitalName === name) {
+        dataArr.push(chargeItem.perCapita)
+      }
+    })
+
+    res.outPatientData.hospital.forEach(outPatientItem => {
+      if (outPatientItem.hospitalName === name) {
+        dataArr.push(outPatientItem.number)
+      }
+    })
+
+    dataArr.push(item.number)
+
+    chargeData.push({
+      name: name,
+      data: dataArr
+    })
+  })
 })
 </script>
 

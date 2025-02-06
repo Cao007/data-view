@@ -8,7 +8,7 @@
       <!-- 主体图表数据展示 -->
       <div class="main-show-data">
         <div class="left-container">
-          <ChartGather></ChartGather>
+          <ChartGather :gatherData="gatherData"></ChartGather>
           <ChartCharge></ChartCharge>
         </div>
         <div class="middle-container">
@@ -54,9 +54,12 @@ const getAllData = async () => {
 
 // 获取顶部数据
 const topData = reactive([])
+// 获取采集数据
+const gatherData = reactive([])
 
 getAllData().then(res => {
   console.log(res)
+  // 顶部数据
   topData.push(
     {
       total: res.gatherData.allgather,
@@ -72,6 +75,16 @@ getAllData().then(res => {
     }
   )
 
+  // 采集数据
+  res.gatherData.hospital.forEach(item => {
+    gatherData.push({
+      name: item.hospitalName,
+      value: item.number
+    })
+  })
+
+  console.log('gatherData', gatherData);
+  
 })
 </script>
 

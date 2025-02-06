@@ -1,19 +1,19 @@
 <template>
   <div class="chart-outpatient-container">
-    {{ name }}
+    <DataContent>
+      <template #title>
+        <span class="title">门诊图表</span>
+      </template>
+      <template #chart>
+        <span>门诊图表</span>
+      </template>
+    </DataContent>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-const name = ref('门诊图表')
+import DataContent from '../dataContent/index.vue'
 
 </script>
 
-<style lang="scss" scoped>
-.chart-outpatient-container {
-  width: 22.6vw;
-  height: 33.3vh;
-  background-color: #081832;
-}
-</style>
+<style lang="scss" scoped></style>

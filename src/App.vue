@@ -103,7 +103,7 @@ getAllData().then(res => {
 
       .middle-container {
         flex: 1;
-        margin: 2.3vh 4.25vw;
+        margin: 2.3vh 4.25vw 0;
 
       }
     }

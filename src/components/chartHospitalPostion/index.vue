@@ -1,18 +1,29 @@
 <template>
   <div class="chart-HospitalPostion-container">
-    {{ name }}
+    <DataContent>
+      <template #title>
+        <span class="title">医院地图</span>
+      </template>
+      <template #chart>
+        <span>医院地图</span>
+      </template>
+    </DataContent>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-const name = ref('医院位置地图')
+import DataContent from '../dataContent/index.vue'
 
 </script>
 
 <style lang="scss" scoped>
 .chart-HospitalPostion-container {
-  background-color: #081832;
-  box-shadow: 0 0 0.5vw 0.5vw rgba(4, 64, 93, .6);
+  display: flex;
+  height: 100%;
+
+  .data-content-container {
+    flex: 1;
+    height: 100%;
+  }
 }
 </style>

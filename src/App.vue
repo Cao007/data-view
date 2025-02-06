@@ -1,9 +1,26 @@
 <template>
   <div class="app-container">
     <Header></Header>
-    <div class="main">
+    <main>
+      <!-- 顶部数据展示 -->
       <TopShowData :topData="topData"></TopShowData>
-    </div>
+
+      <!-- 主体图表数据展示 -->
+      <div class="main-show-data">
+        <div class="left-container">
+          <ChartGather></ChartGather>
+          <ChartCharge></ChartCharge>
+        </div>
+        <div class="middle-container">
+          <ChartHospitalPostion></ChartHospitalPostion>
+        </div>
+        <div class="right-container">
+          <ChartHospitalization></ChartHospitalization>
+          <ChartOutPatient></ChartOutPatient>
+        </div>
+      </div>
+
+    </main>
   </div>
 </template>
 
@@ -11,6 +28,11 @@
 import { ref, reactive } from 'vue'
 import Header from './components/header/index.vue'
 import TopShowData from './components/topShowData/index.vue'
+import ChartGather from './components/chartGather/index.vue'
+import ChartCharge from './components/chartCharge/index.vue'
+import ChartHospitalPostion from './components/chartHospitalPostion/index.vue'
+import ChartHospitalization from './components/chartHospitalization/index.vue'
+import ChartOutPatient from './components/chartOutPatient/index.vue'
 import { gather, charge, outPatient, hospitalization, hospitalPostion } from '@/api/index'
 
 // 一次性获取所有数据
@@ -58,11 +80,33 @@ getAllData().then(res => {
   height: 100vh;
   background-color: pink;
 
-  .main {
-    width: 100vw;
+  main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - 6.48vh);
     padding: 1.85vh 1.04vw;
-    box-sizing: border-box;
     background-color: green;
+
+    .main-show-data {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+
+      .left-container,
+      .right-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 2.3vh;
+      }
+
+      .middle-container {
+        flex: 1;
+        margin: 2.3vh 4.25vw;
+
+      }
+    }
   }
 }
 </style>

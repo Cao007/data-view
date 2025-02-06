@@ -66,7 +66,6 @@ const props = defineProps(['topData'])
     display: flex;
     align-items: center;
     padding: 1.3vw;
-    box-sizing: border-box;
     width: 31.66vw;
     height: 11.48vh;
     background-color: #034c6a;

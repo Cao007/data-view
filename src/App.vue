@@ -123,7 +123,7 @@ getAllData().then(res => {
     width: 100%;
     height: calc(100vh - 6.48vh);
     padding: 1.85vh 1.04vw;
-    background-color: green;
+    background-color: #000;
 
     .main-show-data {
       flex: 1;

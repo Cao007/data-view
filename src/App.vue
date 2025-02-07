@@ -12,7 +12,7 @@
           <ChartCharge :chargeData="chargeData"></ChartCharge>
         </div>
         <div class="middle-container">
-          <ChartHospitalPostion></ChartHospitalPostion>
+          <ChartHospitalPostion :hospitalPostionData="hospitalPostionData"></ChartHospitalPostion>
         </div>
         <div class="right-container">
           <ChartHospitalization></ChartHospitalization>
@@ -58,6 +58,8 @@ const topData = reactive([])
 const gatherData = reactive([])
 // 获取收费数据
 const chargeData = reactive([])
+// 获取医院位置数据
+const hospitalPostionData = reactive([])
 
 getAllData().then(res => {
   console.log(res)
@@ -109,6 +111,15 @@ getAllData().then(res => {
       data: dataArr
     })
   })
+
+  // 医院位置数据
+  res.hospitalPostionData.forEach(item => {
+    hospitalPostionData.push({
+      hospitalName: item.hospitalName,
+      position: item.position
+    })
+  })
+
 })
 </script>
 

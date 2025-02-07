@@ -21,6 +21,7 @@
 
   ::v-deep(.title) {
     position: absolute;
+    z-index: 99;
     left: 50%;
     transform: translateX(-50%);
     top: -1.5vh;

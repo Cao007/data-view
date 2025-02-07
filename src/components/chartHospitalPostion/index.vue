@@ -5,7 +5,7 @@
         <span class="title">医院地图</span>
       </template>
       <template #chart>
-        <div class="hospitalPostionChart">医院地图</div>
+        <div id="hospitalPostionChart">医院地图</div>
       </template>
     </DataContent>
   </div>
@@ -14,28 +14,42 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
 import DataContent from '../dataContent/index.vue'
-import * as echarts from 'echarts';
+import AMapLoader from '@amap/amap-jsapi-loader';
+
+const props = defineProps(['hospitalPostionData'])
+console.log('props.hospitalPostionData', props.hospitalPostionData);
+
+window._AMapSecurityConfig = {
+  securityJsCode: "0f49b6909a6c8e4c992c9d7c7f49b9ed",
+};
 
 onMounted(() => {
-  // 基于准备好的dom，初始化echarts实例
-  const myChart = echarts.init(document.querySelector('.hospitalPostionChart'));
+  AMapLoader.load({
+    key: "d9ba137a6be0ecf32ece3687d27bf8a6",
+    version: "2.0",
+  })
+    .then((AMap) => {
+      const map = new AMap.Map("hospitalPostionChart", {
+        zoom: 13,
+        center: props.hospitalPostionData[0]?.position
+      });
 
-  // 绘制图表
-  const option = {
-    tooltip: {},
-    xAxis: {
-      data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-    },
-    yAxis: {},
-    series: [
-      {
-        name: '销量',
-        type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
-      }
-    ]
-  }
-  myChart.setOption(option);
+      //多个点实例组成的数组
+      const markerList = [];
+      props.hospitalPostionData.forEach((item) => {
+        //创建一个 Marker 实例：
+        const marker = new AMap.Marker({
+          position: new AMap.LngLat(item.position[0], item.position[1]), //经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+          title: item.hospitalName,
+        });
+        markerList.push(marker);
+      })
+      //将创建的点标记添加到已有的地图实例：
+      map.add(markerList);
+    })
+    .catch((e) => {
+      console.error(e); //加载错误提示
+    });
 })
 
 </script>
@@ -49,7 +63,7 @@ onMounted(() => {
     flex: 1;
     height: 100%;
 
-    .hospitalPostionChart {
+    #hospitalPostionChart {
       width: 100%;
       height: 100%;
     }
